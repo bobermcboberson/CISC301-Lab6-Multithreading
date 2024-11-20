@@ -20,6 +20,7 @@ int Fibonacci(void *args) {
         data->result = 1;
     } else {
         int num1 = 0, num2 = 1, num3;
+        // i = 2; because we hardcoded 0th and 1st term in fib in if & elif block
         for (int i = 2; i <= idx; i++) {
             num3 = num1 + num2;
             num1 = num2;
@@ -29,26 +30,6 @@ int Fibonacci(void *args) {
     }
     return 0;
 }
-
-/*void Fibonacci(int n) {
-    int num1 = 0, num2 = 1, num3;
-    printf("Fibonacci: ");
-    for (int i = 1; i <= n; ++i) {     
-        if (i == 1) {
-            printf("%d ", num1);
-            continue;
-        }
-        if (i == 2) {
-            printf("%d ", num2);
-            continue;
-        }
-        num3 = num1 + num2;
-        num1 = num2;
-        num2 = num3;
-        printf("%d ", num3);
-    }
-    printf("\n");
-}*/
 
 int main() {
     int terms;
@@ -70,6 +51,8 @@ int main() {
 
     for (int i = 0; i < terms; ++i) {
         data[i].index = i;
+        // thrd_create needs to be called anyways before the if block can see if it's successful or not.
+        // so line # not only checks if the thread creation is successful, but create the thread so it can check.
         if (thrd_create(&threads[i], Fibonacci, &data[i]) != thrd_success) {
             printf("Thread creation failed\n");
             free(threads);
@@ -90,14 +73,4 @@ int main() {
     free(threads);
     free(data);
     return 0;
-    
-    /*int terms;
-    printf("How many terms in the Fibonacci Sequence?");
-    scanf("%d", &terms);
-    if (terms <= 0) {
-        printf("Can't have less than 0 terms\n");
-        return 0;
-    } else {
-        Fibonacci(terms);
-    }*/
 }

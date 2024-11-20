@@ -12,21 +12,18 @@ typedef struct {
 } thread_data;
 
 int largest_of_two_ints(void *args) {
-    //return (a > b) ? a : b;
     thread_data *data = (thread_data *)args;
     data->result = (data->a > data -> b) ? data->a : data ->b;
     return 0;
 }
 
 int smallest_of_two_ints(void *args) {
-    //return (a < b) ? a : b;
     thread_data *data = (thread_data *)args;
     data->result = (data->a < data -> b) ? data->a : data ->b;
     return 0;
 }
 
 int average_of_two_ints(void *args) {
-    //return (a + b)/2.0;
     thread_data *data = (thread_data *)args;
     data->average = (data->a + data->b) / 2.0;
     return 0;
@@ -36,10 +33,6 @@ int main() {
     int num1, num2;
     printf("give two ints\n");
     scanf("%d %d", &num1, &num2);
-    
-    //float average = average_of_two_ints(num1, num2);
-    //int largets = largest_of_two_ints(num1, num2);
-    //int smallest = smallest_of_two_ints(num1, num2);
     
     thread_data average_data = {num1, num2, 0, 0.0};
     thread_data largest_data = {num1, num2, 0, 0.0};
